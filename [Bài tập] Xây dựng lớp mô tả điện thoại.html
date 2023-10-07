@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mobile</title>
+  </head>
+  <body>
+    <script>
+      class Mobile {
+        constructor() {
+          this.battery = 100;
+          this.draftMessage = "";
+          this.inbox = [];
+          this.sentMessages = [];
+          this.isPowerOn = false;
+        }
+
+        checkPowerStatus() {
+          return this.isPowerOn;
+        }
+
+        turnOn() {
+          this.isPowerOn = true;
+          console.log("Mobile is on");
+        }
+
+        turnOff() {
+          this.isPowerOn = false;
+          console.log("Mobile is off");
+        }
+
+        chargeBattery() {
+          if (this.battery < 100) {
+            this.battery += 1;
+          }
+        }
+
+        composeMessage(message) {
+          if (this.isPowerOn) {
+            this.draftMessage = message;
+            this.battery -= 1;
+            console.log("Drafted message:", message);
+          }
+        }
+
+        receiveMessage(message) {
+          if (this.isPowerOn) {
+            this.inbox.push(message);
+            this.battery -= 1;
+            console.log("Received message:", message);
+          }
+        }
+
+        sendMessage(message, mobile) {
+          if (this.isPowerOn && mobile.isPowerOn) {
+            mobile.receiveMessage(message);
+            this.sentMessages.push(message);
+            this.battery -= 1;
+            console.log("Sent message:", message);
+          }
+        }
+
+        viewInbox() {
+          if (this.isPowerOn) {
+            console.log("Inbox:", this.inbox);
+          } else {
+            console.log("Mobile is off");
+          }
+        }
+
+        viewSentMessages() {
+          if (this.isPowerOn) {
+            console.log("Sent messages:", this.sentMessages);
+          } else {
+            console.log("Mobile is off");
+          }
+        }
+      }
+
+      const nokia = new Mobile();
+      const iphone = new Mobile();
+
+      // Bật Nokia
+      nokia.turnOn();
+
+      // Soạn và gửi tin nhắn từ Nokia tới iPhone
+      nokia.composeMessage("Hello, this is Nokia!");
+      nokia.sendMessage(nokia.draftMessage, iphone);
+
+      // Xem hộp thư đến và tin nhắn đã gửi
+      nokia.viewInbox();
+      nokia.viewSentMessages();
+    </script>
+  </body>
+</html>

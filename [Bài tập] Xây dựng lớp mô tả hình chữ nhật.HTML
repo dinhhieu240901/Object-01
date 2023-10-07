@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="myCanvas"
+      width="300"
+      height="150"
+      style="border: 1px solid grey"
+    ></canvas>
+    <script>
+      class Rectangle {
+        letructor(length, width) {
+          this.length = length;
+          this.width = width;
+        }
+
+        calculateArea() {
+          return this.length * this.width;
+        }
+
+        calculatePerimeter() {
+          return 2 * (this.length + this.width);
+        }
+
+        displayRectangle() {
+          const canvas = document.getElementById("myCanvas");
+          const ctx = canvas.getContext("2d");
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.fillRect(0, 0, this.length, this.width);
+        }
+      }
+
+      let rectangle = new Rectangle(10, 5);
+      rectangle.displayRectangle();
+
+      rectangle.length = 8;
+      rectangle.width = 3;
+
+      document.write("<br>" + "Area:", rectangle.calculateArea() + "<br>");
+      document.write("Perimeter:", rectangle.calculatePerimeter());
+    </script>
+  </body>
+</html>
